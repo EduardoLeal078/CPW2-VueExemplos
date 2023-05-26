@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>My first Vue page</title>
+    <style>
+        #app {
+            width: 50%;
+            display: inline-block;
+            padding: 5%;
+            font-size: x-large;
+            background-color: lightgreen;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        
+        {{ message }} {{text}} {{another}} {{text}}
+        <br><button v-on:click="changeMessage()"> Do not touch!!</button>
+        <br><button v-on:click="add()">Adicionar Imagem</button>
+        <div v-if="count >= 1"><button v-on:click="idiot()">if you press the button...</button></div>
+        <br><input type="text" v-model="message">
+
+        <ul style="padding: 0;">
+            <li v-for="i in images" style="list-style-type: none;" v-show="show">
+                <img v-bind:src="i.url"><br>
+
+            </li>
+        </ul>
+    </div>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+        const app = Vue.createApp({
+            data() {
+                return {
+                    message: "Hello World ...",
+                    text: "Again ...",
+                    another: "and ...",
+                    count: 0,
+                    images: [
+                        { url: "https://picsum.photos/400/400" },
+                        { url: "https://picsum.photos/401/401" }
+                    ],
+                    show: true
+
+                }
+            },
+            methods: {
+                changeMessage() {
+                    this.message = "I said don't press the button!!!"
+                    this.text = ""
+                    this.another = ""
+                    this.count++
+                    this.show = false
+                },
+                idiot() {
+                    this.message = "Hello World ..."
+                    this.text = "Again ..."
+                    this.another = "and ..."
+                    this.count--
+                    this.show = true
+
+                },
+                add() {
+                    let n = Math.floor(Math.random() * 6) + 399
+                    let random = "https://picsum.photos/" + n + "/" + n
+                    this.images.push({ url: random });
+                }
+            }
+        })
+        app.mount('#app')
+    </script>
+
+</body>
+
+</html>
